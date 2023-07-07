@@ -1,4 +1,5 @@
 import styles from "./City.module.css";
+import {useParams, useSearchParams} from "react-router-dom";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -8,7 +9,10 @@ const formatDate = (date) =>
     weekday: "long",
   }).format(new Date(date));
 
+
 function City() {
+    const {id} = useParams()
+    console.log(id)
   // TEMP DATA
   const currentCity = {
     cityName: "Lisbon",
@@ -18,6 +22,10 @@ function City() {
   };
 
   const { cityName, emoji, date, notes } = currentCity;
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const lat = searchParams.get('lat');
+    const lng = searchParams.get('lng');
 
   return (
     <div className={styles.city}>
@@ -52,7 +60,7 @@ function City() {
       </div>
 
       <div>
-        <ButtonBack />
+        {/*<ButtonBack />*/}
       </div>
     </div>
   );
