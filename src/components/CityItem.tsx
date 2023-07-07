@@ -1,6 +1,8 @@
 import React from 'react'
 import styles from './CityItem.module.css'
 import {Link, useParams} from "react-router-dom";
+import {useCities} from "../context/CitiesContext.tsx";
+import BackButton from "./BackButton.tsx";
 
 
 const formatDate = (date) =>
@@ -19,11 +21,13 @@ type CityProps ={
 
 const CityItem = ({city}:CityProps) => {
     const {cityName, emoji, date, id, position} = city;
+
+    const {currentCity} = useCities()
     return (
        <ul>
 
            <li>
-               <Link to={`${id}?lat=${position.lat}&lng=${position.lng}`} className={styles.cityItem}>
+               <Link to={`${id}?lat=${position.lat}&lng=${position.lng}`} className={`${styles.cityItem} ${id === currentCity.id ? styles["cityItem--active"]: ""}`}>
 
                <span className={styles.emoji}>
 
@@ -41,6 +45,8 @@ const CityItem = ({city}:CityProps) => {
                    </time>
                    <button className={styles.deleteBtn}>&times;</button>
                </Link>
+
+
            </li>
 
        </ul>

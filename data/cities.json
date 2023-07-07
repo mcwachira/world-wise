@@ -37,28 +37,16 @@
       "id": 98443197
     },
     {
-      "cityName": "Florida",
+      "cityName": "Miami",
       "country": "Usa",
       "emoji": "🇺🇸",
       "date": "2027-02-12T09:24:11.863Z",
       "notes": "Amazing 😃",
       "position": {
-        "lat": 52.53586782505711,
-        "lng": 13.376933665713324
+        "lat":25.77427,
+        "lng":-80.19366
       },
       "id": 943197
-    },
-    {
-      "cityName": "Berlin",
-      "country": "Germany",
-      "emoji": "🇩🇪",
-      "date": "2027-02-12T09:24:11.863Z",
-      "notes": "Amazing 😃",
-      "position": {
-        "lat": 52.53586782505711,
-        "lng": 13.376933665713324
-      },
-      "id": 9844319733
     }
   ]
 }

@@ -19,9 +19,15 @@ export const CitiesProvider = ({children}:CitiesProviderProps) => {
 
 
     const [cities , setCities] = useState([])
+    const [currentCity, setCurrentCity] = useState({})
     const [isLoading, setIsLoading]= useState(false)
 
+    const fetchCurrentCity = async (id) => {
 
+        const res = await axios.get(`http://localhost:8000/cities/${id}`)
+        setCurrentCity(res.data)
+
+    }
 
     const fetchCities = async() => {
 
@@ -47,9 +53,12 @@ export const CitiesProvider = ({children}:CitiesProviderProps) => {
 
     const value ={
 cities,
+
+        currentCity,
         setCities,
         isLoading,
-        setIsLoading
+        setIsLoading,
+        fetchCurrentCity
     }
     return (
         <CitiesContext.Provider value={value}>
