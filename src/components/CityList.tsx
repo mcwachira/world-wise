@@ -3,6 +3,7 @@ import styles from './CityList.module.css'
 import Spinner from "./Spinner.tsx";
 import CityItem from "./CityItem.tsx";
 import Message from "./Message.tsx";
+import {useCities} from "../context/CitiesContext.tsx";
 
 type CityListProps  ={
     cities:[],
@@ -10,7 +11,10 @@ type CityListProps  ={
 
 
 }
-const CityList = ({isLoading, cities}:CityListProps) => {
+const CityList = () => {
+
+    const {cities, isLoading}:CityListProps = useCities()
+
 
     if(isLoading) return <Spinner/>;
 

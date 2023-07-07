@@ -4,6 +4,7 @@ import Spinner from "./Spinner.tsx";
 import CityItem from "./CityItem.tsx";
 import Message from "./Message.tsx";
 import CountryItem from "./CountryItem.tsx";
+import {useCities} from "../context/CitiesContext.tsx";
 
 type CityListProps  ={
     cities:[],
@@ -11,7 +12,9 @@ type CityListProps  ={
 
 
 }
-const CountryList = ({isLoading, cities}:CityListProps ) => {
+const CountryList = () => {
+
+    const {cities, isLoading}:CityListProps = useCities()
 
     if(isLoading) return <Spinner/>;
 

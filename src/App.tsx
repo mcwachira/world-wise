@@ -18,32 +18,6 @@ import City from "./components/City.tsx";
 
 function App() {
 
-  const [cities , setCities] = useState([])
-  const [isLoading, setIsLoading]= useState(false)
-
-
-
-  const fetchCities = async() => {
-
-    try{
-      setIsLoading(true)
-      const res =  await axios.get('  http://localhost:8000/cities')
-      setCities(res.data)
-      setIsLoading(false)
-
-      console.log(res.data)
-
-    }catch(error){
-      console.log('error', error)
-      setIsLoading(false)
-    }
-
-
-  }
-  useEffect(() => {
-
-    fetchCities()
-  },[])
 
   return (
 <Routes>
@@ -56,9 +30,9 @@ function App() {
   <Route path='app' element={<AppLayout/>}>
 
     <Route index element={<Navigate replace to='cities'/>}/>
-    <Route path='cities' element={<CityList isLoading={isLoading} cities={cities}/>}/>
+    <Route path='cities' element={<CityList/>}/>
     <Route path='cities/:id' element={<City />}/>
-    <Route path='countries' element={<CountryList isLoading={isLoading} cities={cities}/>}/>
+    <Route path='countries' element={<CountryList/>}/>
     <Route path='form' element={<Form/>}/>
 
   </Route>
