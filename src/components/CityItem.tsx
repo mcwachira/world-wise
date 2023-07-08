@@ -15,6 +15,8 @@ const formatDate = (date) =>
 
 
 
+
+
 type CityProps ={
     city:object
 }
@@ -22,7 +24,14 @@ type CityProps ={
 const CityItem = ({city}:CityProps) => {
     const {cityName, emoji, date, id, position} = city;
 
-    const {currentCity} = useCities()
+    const {currentCity, deleteCity} = useCities()
+
+
+    const handleDelete = async(e) => {
+
+        e.preventDefault()
+        await deleteCity(id)
+    }
     return (
        <ul>
 
@@ -43,7 +52,7 @@ const CityItem = ({city}:CityProps) => {
 
                        {formatDate(date)}
                    </time>
-                   <button className={styles.deleteBtn}>&times;</button>
+                   <button className={styles.deleteBtn} onClick={handleDelete}>&times;</button>
                </Link>
 
 

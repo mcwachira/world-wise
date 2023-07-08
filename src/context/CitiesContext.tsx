@@ -1,5 +1,6 @@
 import {createContext, ReactNode, useContext, useEffect, useState} from 'react'
 import axios from "axios";
+import {useUrlPosition} from "../hooks/useUrlPosition.ts";
 
 const CitiesContext = createContext()
 
@@ -41,6 +42,35 @@ export const CitiesProvider = ({children}:CitiesProviderProps) => {
 
         }catch(error){
             console.log('error', error)
+
+        }finally {
+            setIsLoading(false)
+        }
+
+    }
+
+    const createCity = async(newCity:object) => {
+        console.log(newCity)
+
+        try{
+            setIsLoading(true)
+
+            const url = 'http://localhost:8000/cities';
+
+            // Specifying headers in the config object
+            const config = { 'content-type': 'application/json' };
+
+            const res =  await axios.post(url, newCity, config)
+            console.log(res)
+            setCities((cities) => [...cities,res.data])
+            setIsLoading(false)
+
+            //console.log(res.data)
+
+        }catch(error){
+            console.log('error', error)
+            setIsLoading(false)
+        }finally {
             setIsLoading(false)
         }
 
@@ -51,6 +81,26 @@ export const CitiesProvider = ({children}:CitiesProviderProps) => {
         fetchCities()
     },[])
 
+
+    const deleteCity= async(id) => {
+
+        try{
+            setIsLoading(true)
+            const res =  await axios.delete(`http://localhost:8000/cities/${id}`)
+            setCities((cities) => cities.filter((city) => city.id !== id))
+            setIsLoading(false)
+
+            //console.log(res.data)
+
+        }catch(error){
+            console.log('error', error)
+
+        }finally {
+            setIsLoading(false)
+        }
+
+    }
+
     const value ={
 cities,
 
@@ -58,7 +108,9 @@ cities,
         setCities,
         isLoading,
         setIsLoading,
-        fetchCurrentCity
+        fetchCurrentCity,
+        createCity,
+        deleteCity
     }
     return (
         <CitiesContext.Provider value={value}>
