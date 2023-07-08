@@ -11,9 +11,9 @@ import AppLayout from "./pages/AppLayout.tsx";
 import Form from "./components/Form.tsx";
 import CityList from "./components/CityList.tsx";
 import CountryList from "./components/CountryList.tsx";
-import {useEffect, useState} from "react";
-import axios from 'axios'
+
 import City from "./components/City.tsx";
+import ProtectedRoute from './pages/ProtectedRoute'
 
 
 function App() {
@@ -27,7 +27,11 @@ function App() {
   <Route path='/pricing' element={<Pricing/>}/>
   <Route path='/login' element={<Login/>}/>
   <Route path='*' element={<PageNotFound/>}/>
-  <Route path='app' element={<AppLayout/>}>
+  <Route path='app' element={<ProtectedRoute>
+  <AppLayout/>
+  </ProtectedRoute>
+}
+>
 
     <Route index element={<Navigate replace to='cities'/>}/>
     <Route path='cities' element={<CityList/>}/>

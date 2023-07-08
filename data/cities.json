@@ -59,6 +59,18 @@
         "lng": "-4.746093750000001"
       },
       "id": 98443202
+    },
+    {
+      "cityName": "Central Kgalagadi Game Reserve",
+      "country": "",
+      "emoji": "🇧🇼",
+      "date": "2023-07-08T10:42:19.818Z",
+      "notes": "africa",
+      "position": {
+        "lat": "-23.110661104250624",
+        "lng": "24.33634221553803"
+      },
+      "id": 98443203
     }
   ]
 }
