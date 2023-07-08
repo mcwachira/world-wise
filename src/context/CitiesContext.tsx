@@ -1,14 +1,65 @@
-import {createContext, ReactNode, useContext, useEffect, useState} from 'react'
+import {createContext, ReactNode, useContext, useEffect, useReducer, useState} from 'react'
 import axios from "axios";
 import {useUrlPosition} from "../hooks/useUrlPosition.ts";
 
 const CitiesContext = createContext()
 
+const initialState = {
+    cities:[],
+    isLoading:false,
+    currentCity: {},
+    error:""
+}
 
-type CitiesProviderProps ={
-    children:ReactNode,
+const reducer = (state,action) => {
+
+    switch(action.type){
+        case 'loading':
+            return {
+                ...state,
+                isLoading:true
+            }
+        case 'cities/loaded':
+            return {
+                ...state,
+                isLoading:false,
+                cities:action.payload
+            }
+
+        case 'city/loaded':
+            return {
+                ...state,
+                isLoading:false,
+                currentCity:action.payload
+            }
+
+
+
+        case 'city/created':
+            return {
+                ...state,
+                isLoading:false,
+                cities:[...state.cities, action.payload],
+                currentCity:action.payload
+            }
+        case 'cities/deleted':
+            return {
+                ...state,
+                isLoading:false,
+                cities:state.cities.filter((city) => city.id !== action.payload),
+                currentCity:{}
+
+            }
+
+
+        case 'rejected':
+            return {...state, isLoading:false, error:action.payload}
+        default :
+             throw new Error('dispatch method wrong')
+    }
 
 }
+
 
 type CityListProps  ={
     cities:[],
@@ -18,33 +69,54 @@ type CityListProps  ={
 }
 export const CitiesProvider = ({children}:CitiesProviderProps) => {
 
+const [{cities, isLoading, currentCity,error},  dispatch] = useReducer(reducer, initialState)
+type CitiesProviderProps ={
+    children:ReactNode,
 
-    const [cities , setCities] = useState([])
-    const [currentCity, setCurrentCity] = useState({})
-    const [isLoading, setIsLoading]= useState(false)
+}
+
+
+
+
+
+    // const [cities , setCities] = useState([])
+    // const [currentCity, setCurrentCity] = useState({})
+    // const [isLoading, setIsLoading]= useState(false)
 
     const fetchCurrentCity = async (id) => {
+    if(Number(id) === currentCity.id) return;
 
-        const res = await axios.get(`http://localhost:8000/cities/${id}`)
-        setCurrentCity(res.data)
 
+        try {
+            dispatch({type: 'loading'})
+            const res = await axios.get(`http://localhost:8000/cities/${id}`)
+            dispatch({type: 'city/loaded', payload: res.data})
+
+
+        } catch (error) {
+            console.log('error', error)
+            dispatch({type: 'rejected', payload: 'Therer wass an error loading data...'})
+
+
+        }
     }
 
     const fetchCities = async() => {
 
         try{
-            setIsLoading(true)
+            dispatch({type:'loading'})
             const res =  await axios.get('  http://localhost:8000/cities')
-            setCities(res.data)
-            setIsLoading(false)
+
+            dispatch({type:'cities/loaded', payload:res.data})
+
 
             //console.log(res.data)
 
         }catch(error){
             console.log('error', error)
+            dispatch({type:'rejected', payload:'Therer wass an error loading data...'})
 
-        }finally {
-            setIsLoading(false)
+
         }
 
     }
@@ -53,7 +125,7 @@ export const CitiesProvider = ({children}:CitiesProviderProps) => {
         console.log(newCity)
 
         try{
-            setIsLoading(true)
+            dispatch({type:'loading'})
 
             const url = 'http://localhost:8000/cities';
 
@@ -62,16 +134,15 @@ export const CitiesProvider = ({children}:CitiesProviderProps) => {
 
             const res =  await axios.post(url, newCity, config)
             console.log(res)
-            setCities((cities) => [...cities,res.data])
-            setIsLoading(false)
+            dispatch({type:'city/created', payload:res.data})
 
             //console.log(res.data)
 
         }catch(error){
             console.log('error', error)
-            setIsLoading(false)
-        }finally {
-            setIsLoading(false)
+            dispatch({type:'rejected', payload:'Therer wass an error creating city...'})
+
+
         }
 
 
@@ -85,32 +156,35 @@ export const CitiesProvider = ({children}:CitiesProviderProps) => {
     const deleteCity= async(id) => {
 
         try{
-            setIsLoading(true)
+            dispatch({type:'loading'})
             const res =  await axios.delete(`http://localhost:8000/cities/${id}`)
-            setCities((cities) => cities.filter((city) => city.id !== id))
-            setIsLoading(false)
+
+            dispatch({type:'cities/deleted', payload:id})
+
+            //setCities((cities) => cities.filter((city) => city.id !== id))
+
 
             //console.log(res.data)
 
         }catch(error){
-            console.log('error', error)
+        console.log('error', error)
+        dispatch({type:'rejected', payload:'Therer wass an error deleting data...'})
 
-        }finally {
-            setIsLoading(false)
-        }
 
     }
+
+
+}
 
     const value ={
 cities,
 
         currentCity,
-        setCities,
         isLoading,
-        setIsLoading,
         fetchCurrentCity,
         createCity,
-        deleteCity
+        deleteCity,
+        error
     }
     return (
         <CitiesContext.Provider value={value}>
