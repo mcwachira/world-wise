@@ -35,7 +35,7 @@ function City() {
 
 
         fetchCurrentCity(id)
-    }, [id])
+    }, [id, fetchCurrentCity])
   const { cityName, emoji, date, notes } = currentCity;
 
     // const [searchParams, setSearchParams] = useSearchParams();

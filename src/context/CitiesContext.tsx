@@ -1,4 +1,4 @@
-import {createContext, ReactNode, useContext, useEffect, useReducer, useState} from 'react'
+import {createContext, ReactNode, useCallback, useContext, useEffect, useReducer, useState} from 'react'
 import axios from "axios";
 import {useUrlPosition} from "../hooks/useUrlPosition.ts";
 
@@ -67,13 +67,15 @@ type CityListProps  ={
 
 
 }
-export const CitiesProvider = ({children}:CitiesProviderProps) => {
 
-const [{cities, isLoading, currentCity,error},  dispatch] = useReducer(reducer, initialState)
 type CitiesProviderProps ={
     children:ReactNode,
 
 }
+export const CitiesProvider = ({children}:CitiesProviderProps) => {
+
+const [{cities, isLoading, currentCity,error},  dispatch] = useReducer(reducer, initialState)
+
 
 
 
@@ -83,8 +85,9 @@ type CitiesProviderProps ={
     // const [currentCity, setCurrentCity] = useState({})
     // const [isLoading, setIsLoading]= useState(false)
 
-    const fetchCurrentCity = async (id) => {
-    if(Number(id) === currentCity.id) return;
+   const fetchCurrentCity = useCallback(
+ async function fetchCurrentCity(id:string) {
+        if(Number(id) === currentCity.id) return;
 
 
         try {
@@ -99,7 +102,10 @@ type CitiesProviderProps ={
 
 
         }
-    }
+    },
+       [currentCity.id],
+   );
+
 
     const fetchCities = async() => {
 

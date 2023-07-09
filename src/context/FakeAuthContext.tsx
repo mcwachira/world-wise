@@ -1,4 +1,4 @@
-import {createContext, useContext, useReducer} from "react";
+import {createContext, ReactNode, useContext, useReducer} from "react";
 
 
 const AuthContext = createContext()
@@ -39,11 +39,18 @@ const FAKE_USER = {
     avatar: "https://i.pravatar.cc/100?u=zz",
 };
 
-export const AuthProvider = ({children}) => {
+
+type AuthProviderProps ={
+    children:ReactNode,
+
+}
+
+
+export const AuthProvider = ({children}:AuthProviderProps) => {
 
     const [{user, isAuthenticated}, dispatch] = useReducer(reducer, initialState)
 
-    const login = (email, password) => {
+    const login = ( email:string,password:string) => {
 
         if(email === FAKE_USER.email && password == FAKE_USER.password)
             dispatch({type:'login', payload:FAKE_USER})
