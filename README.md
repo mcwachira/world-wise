@@ -1,6 +1,6 @@
 # World Wise
 
-This is a simple react journal application that logs cities you have visited all ove the World
+This is a simple react journal application that logs cities you have visited all over the World
 
 
 
@@ -27,28 +27,27 @@ This is a simple react journal application that logs cities you have visited all
 
 ### What I learned
 
-1. I learnt how to use React Context   to manage state in my app
-2. Learnt how to use leaflet to render a map in the app
-3. Learnt how to create a netlify function  to travel data in a json file
-4. Learnt how to improve performance through code splitting and lazy loading.
+1. I learned how to use React Context   to manage the state of my app
+2. Learnt how to use leaflet library to render a map in the app
+3. Learnt how to create a Netlify function  to travel data in a JSON file
+4. Learned how to improve performance through code splitting and lazy loading.
 
 
 
 
 ### Continued development
 
-The goal in future is 
-1. Use firebase auth to handle authentication for users
-2. Use firebase realtime database to store travel data
+The goal in the future is 
+1. Use Firebase auth to handle authentication for users
+2. Use Firebase real-time database to store travel data
  
 ### Useful resources
 
-- [React Docs](https://www.react.com) - This helped me to understand hooks and the useReducer Hook.I'd recommend it to anyone still learning this concept.
+- [React Docs](https://www.react.com) - This helped me to understand how to use the context API to manage the global state.
 
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
 
 ## Author
 
-- Website - [Add your name here](https://www.mcwachira.com)
-- Twitter - [@yourusername](https://www.twitter.com/mcwachira)
+- Website - [mcwachira](https://www.mcwachira.com)
+- Twitter - [mc_wachira](https://www.twitter.com/mc_wachira)
 
