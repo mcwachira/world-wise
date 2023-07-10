@@ -1,6 +1,6 @@
-import React from 'react'
+
 import styles from "./AppNav.module.css";
-import Logo from "./Logo.tsx";
+
 import {NavLink} from "react-router-dom";
 
 const AppNav = () => {

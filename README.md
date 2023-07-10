@@ -43,7 +43,7 @@ The goal in future is
  
 ### Useful resources
 
-- [React Docs](https://www.react.com) - This helped me to uderstand hooks and the useReducer Hook.I'd recommend it to anyone still learning this concept.
+- [React Docs](https://www.react.com) - This helped me to understand hooks and the useReducer Hook.I'd recommend it to anyone still learning this concept.
 
 **Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
 

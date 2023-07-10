@@ -1,15 +1,15 @@
-import React from 'react'
+import React, {ReactNode} from 'react'
 import styles from './Button.module.css'
 
 
-type Button = {
+type ButtonPropTypes = {
     children:ReactNode,
     onClick:MouseEvent,
     type:string
 
 
 }
-const Button = ({children, onClick, type}) => {
+const Button = ({children, onClick, type}:ButtonPropTypes) => {
 
 
 

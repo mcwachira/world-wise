@@ -1,12 +1,12 @@
 import styles from "./City.module.css";
-import {useParams, useSearchParams} from "react-router-dom";
-import React, {useEffect, useState} from "react";
-import axios from "axios";
+import {useParams} from "react-router-dom";
+import React, {useEffect} from "react";
+
 import {useCities} from "../context/CitiesContext.tsx";
 import Spinner from "./Spinner.tsx";
 import BackButton from "./BackButton.tsx";
 
-const formatDate = (date) =>
+const formatDate = (date:Date) =>
   new Intl.DateTimeFormat("en", {
     day: "numeric",
     month: "long",
@@ -15,9 +15,15 @@ const formatDate = (date) =>
   }).format(new Date(date));
 
 
+type useCities ={
+    currentCity:object,
+    isLoading:boolean
+        fetchCurrentCity:
+
+}
 function City() {
 
-    const {currentCity, fetchCurrentCity, isLoading} = useCities()
+    const {currentCity:object, fetchCurrentCity:, isLoading:boolean}:useCities = useCities()
 
     const {id} = useParams()
 

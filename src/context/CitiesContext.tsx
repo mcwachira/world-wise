@@ -1,4 +1,4 @@
-import {createContext, ReactNode, useCallback, useContext, useEffect, useReducer, useState} from 'react'
+import React, {createContext, ReactNode, useCallback, useContext, useEffect, useReducer, useState} from 'react'
 import axios from "axios";
 import {useUrlPosition} from "../hooks/useUrlPosition.ts";
 
@@ -200,7 +200,9 @@ cities,
 }
 
 
-export const useCities = () => {
+
+type CitiesFunc = () => null
+export const useCities:React.FC = () => {
     const context =   useContext(CitiesContext)
     if(context  === undefined) throw new Error('Cities Context was used Outside a provider')
     return (
